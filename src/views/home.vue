@@ -144,8 +144,9 @@
               <a-table :columns="columns2" :data-source="data2" bordered :pagination="false" style="margin-top: 20px;">
                 <template #bodyCell="{ column, text, record }">
                   <template v-if="['col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7'].includes(column.dataIndex)">
+
                     <div>
-                      <a-input v-model:value="record.key" style="margin: -5px 0" />
+                      <a-input v-model:value="record[column.key]" style="margin: -5px 0" />
                     </div>
                   </template>
                 </template>
@@ -154,17 +155,17 @@
                 <template #bodyCell="{ column, text, record }">
                   <template v-if="['col1',  'col3', 'col5'].includes(column.dataIndex)">
                     <div>
-                      <a-input v-model:value="record.key" style="margin: -5px 0" />
+                      <a-input v-model:value="record[column.key]" style="margin: -5px 0" />
                     </div>
                   </template>
                   <template v-if="[ 'col2',  'col4',  'col6'].includes(column.dataIndex)">
                     <div>
-                      <a-select v-model:value="record.key" style="width:150px" show-search placeholder="" :options="options" :filter-option="filterOption" @focus="handleFocus" @blur="handleBlur" @change="changeCustom"></a-select>
+                      <a-select v-model:value="record[column.key]" style="width:150px" show-search placeholder="" :options="options" :filter-option="filterOption" @focus="handleFocus" @blur="handleBlur" @change="changeCustom"></a-select>
                     </div>
                   </template>
                   <template v-if="[ 'col7',  'col8'].includes(column.dataIndex)">
                     <div>
-                      <a-date-picker placeholder="" v-model:value="value1" style="width:150px" />
+                      <a-date-picker placeholder=""  v-model:value="record[column.key]" style="width:150px" />
                     </div>
                   </template>
                 </template>
@@ -318,9 +319,13 @@ export default defineComponent({
         }
       ],
       data2: [{
-        col1: "BJ000090",
-        col2: "宁波九州通药业有限公司",
-        col3: "浙江省",
+        col1: "",
+        col2: "",
+        col3: "",
+        col4: "",
+        col5: "",
+        col6: "",
+        col7: "",
       },],
       columns2: [
         {
@@ -360,9 +365,14 @@ export default defineComponent({
         }
       ],
       data3: [{
-        col1: "BJ000090",
-        col2: "宁波九州通药业有限公司",
-        col3: "浙江省",
+        col1: "",
+        col2: "",
+        col3: "",
+        col4: "",
+        col5: "",
+        col6: "",
+        col7: "",
+        col8: "",
       },],
       columns3: [
         {
@@ -441,7 +451,7 @@ export default defineComponent({
     deleteItem(id) {
       this.inputs.value7.splice(id, 1)
     },
-    addTab(){
+    addTab() {
       this.tabs.push("")
     },
     deleteTab(id) {
