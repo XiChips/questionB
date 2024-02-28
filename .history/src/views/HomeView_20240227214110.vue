@@ -1,0 +1,500 @@
+<template>
+  <a-layout>
+    <a-layout>
+      <a-layout-sider width="200" style="background: #fff">
+        <a-menu v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys" mode="inline" :style="{ height: '100%', borderRight: 0 }">
+          <div class="logo" @click="t">
+            <img src="./assets/imgs/logo.jpg" alt />
+          </div>
+          <hr />
+          <div>
+            <a-menu-item @click="changeTab('最新动态管理')"> 最新动态管理 </a-menu-item>
+          </div>
+          <!-- <div>
+            <a-menu-item @click="changeTab('测试')"> 测试 </a-menu-item>
+          </div>
+          <div>
+            <a-menu-item @click="changeTab('测试2')"> 测试2 </a-menu-item>
+          </div> -->
+          <div v-for="(item, i) in links">
+            <!-- <a-menu-item v-if="item.children == undefined && item.au != '无权限'" :key="`item${i}_0`" @click="changeTab(item.name)"> -->
+
+            <a-menu-item v-if="item.children == undefined" :key="`item${i}_0`" @click="changeTab(item.name)">
+              <AuditOutlined v-if="item.name == '合同管理'" />
+              <LaptopOutlined v-if="item.name == '首页'" />
+              <HomeOutlined v-if="item.name == '房源管理'" />
+              <ContactsOutlined v-if="item.name == '租客管理'" />
+              <DesktopOutlined v-if="item.name == '工作台'" />
+              <!-- <BarChartOutlined v-if="item.name=='统计'" /> -->
+              <ScheduleOutlined v-if="item.name == '预约看房审核'" />
+              <ToolOutlined v-if="item.name == '维修管理'" />
+              <FundProjectionScreenOutlined v-if="item.name == '项目管理'" />
+              <AuditOutlined v-if="item.name == '最新动态'" />
+              <AuditOutlined v-if="item.name == '人才政策'" />
+              <TransactionOutlined v-if="item.name == '增值服务'" />
+              <UserSwitchOutlined v-if="item.name == '人才管理'" />
+              <BarChartOutlined v-if="item.name == '统计'" />
+              {{ item.name }}
+            </a-menu-item>
+
+            <a-sub-menu :key="`title${i + 1}`" v-if="item.children != undefined && item.au != '无权限'">
+              <template #title>
+                <span>
+                  <!-- <AuditOutlined v-if="item.name=='合同管理'" />
+                  <LaptopOutlined v-if="item.name=='首页'" />
+                  <HomeOutlined v-if="item.name=='不动产管理'" />
+                  <ContactsOutlined v-if="item.name=='租客管理'" />
+                  <DesktopOutlined v-if="item.name=='工作台'" />
+                  <FileTextOutlined v-if="item.name=='合同管理'" />
+                  <ScheduleOutlined v-if="item.name=='预约看房审核'" />
+                  <ToolOutlined v-if="item.name=='维修管理'" />
+                  <FundProjectionScreenOutlined v-if="item.name=='项目管理'" />-->
+                  <ScheduleOutlined v-if="item.name == '租后管理'" />
+                  <TeamOutlined v-if="item.name == '企业管理'" />
+                  <ContactsOutlined v-if="item.name == '租赁管理'" />
+                  <UserSwitchOutlined v-if="item.name == '人才管理'" />
+                  <BarChartOutlined v-if="item.name == '统计'" />
+                  <TransactionOutlined v-if="item.name == '增值服务'" />
+                  {{ item.name }}
+                </span>
+              </template>
+              <a-menu-item v-for="(item2, j) in item.children" :key="`item${i}_${j}`" @click="changeTab(item2.title)">{{ item2.title }}
+              </a-menu-item>
+            </a-sub-menu>
+          </div>
+        </a-menu>
+      </a-layout-sider>
+      <a-layout style="padding: 0px 10px 24px">
+        <a-layout-content :style="{
+            background: '#fff',
+            padding: '24px',
+            margin: 0,
+            minHeight: '280px',
+          }">
+          <div class="flex_sb" style="padding-right: 3%">
+            <div class="titleStyle3">奉贤乐居后台管理系统</div>
+            <!-- <a-popover class="popover" title="用户xxx，您好"> -->
+            <a-popover class="popover" title="用户xxx，您好" trigger="click">
+              <template #content>
+                <p>修改密码</p>
+                <p>退出登录</p>
+              </template>
+              <a-button type="primary"></a-button>
+            </a-popover>
+          </div>
+
+          <a-tabs :activeKey="activeKey" type="editable-card" @edit="onEdit" hideAdd @tabClick="showThis($event)">
+            <a-tab-pane v-for="(item, i) in pages" :key="i">
+              <template #tab>
+                {{ item.name }}
+              </template>
+              <!-- <keep-alive>
+                <router-view>
+
+                </router-view>
+              </keep-alive> -->
+            </a-tab-pane>
+          </a-tabs>
+          <!-- <router-view v-if="$route?.meta?.keepAlive" v-slot="{ Component }"> -->
+          <router-view v-if="
+              $route?.meta?.limite == '只读' || $route?.meta?.limite == '可编辑'
+            " v-slot="{ Component }">
+            <!-- <keep-alive :include="['项目管理','房源管理','租客管理','房源管理','房源管理','房源管理']"> -->
+            <keep-alive>
+              <Component :is="Component" v-on:listenTochildEvent="changeTab2" />
+            </keep-alive>
+          </router-view>
+          <!-- <router-view v-else></router-view> -->
+        </a-layout-content>
+      </a-layout>
+    </a-layout>
+  </a-layout>
+</template>
+<script>
+import {
+  UserOutlined,
+  LaptopOutlined,
+  NotificationOutlined,
+  HomeOutlined,
+  TeamOutlined,
+  DesktopOutlined,
+  BarChartOutlined,
+  ContactsOutlined,
+  AuditOutlined,
+  ScheduleOutlined,
+  ToolOutlined,
+  FundProjectionScreenOutlined,
+  UserSwitchOutlined,
+  TransactionOutlined,
+} from "@ant-design/icons-vue";
+import { defineComponent, ref } from "vue";
+
+export default defineComponent({
+  components: {
+    UserOutlined,
+    LaptopOutlined,
+    NotificationOutlined,
+    HomeOutlined,
+    TeamOutlined,
+    DesktopOutlined,
+    BarChartOutlined,
+    ContactsOutlined,
+    AuditOutlined,
+    ScheduleOutlined,
+    ToolOutlined,
+    FundProjectionScreenOutlined,
+    UserSwitchOutlined,
+    TransactionOutlined,
+  },
+  name: "home",
+  data() {
+    return {
+      activeKey: 0,
+      // links: [
+      //   {
+      //     name: "首页",
+      //   },
+      //   {
+      //     name: "工作台",
+      //   },
+      //   {
+      //     name: "人才政策",
+      //   },
+      //   {
+      //     name: "人才管理",
+      //     children: [
+      //       {
+      //         title: "人才资格审核",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     name: "租赁管理单位管理",
+      //     children: [
+      //       {
+      //         title: "企业入驻审核",
+      //       },
+      //       {
+      //         title: "帐号配置",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     name: "租赁管理",
+      //     children: [
+      //       {
+      //         title: "预约看房审核",
+      //       },
+      //       {
+      //         title: "项目管理",
+      //       },
+      //       {
+      //         title: "审核项目",
+      //       },
+      //       {
+      //         title: "房源管理",
+      //       },
+      //       {
+      //         title: "人才选房审核",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     name: "租后管理",
+      //     children: [
+      //       {
+      //         title: "租客管理",
+      //       },
+      //       {
+      //         title: "合同管理",
+      //       },
+      //       {
+      //         title: "维修管理",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     name: "统计",
+      //     children: [
+      //       {
+      //         title: "租金统计",
+      //       },
+      //       {
+      //         title: "租户类型统计",
+      //       },
+      //       {
+      //         title: "户籍类型统计",
+      //       },
+      //       {
+      //         title: "年龄层次统计",
+      //       },
+      //       {
+      //         title: "学历统计",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     name: "增值服务",
+      //   },
+      // ],
+      links: this.$store.state.loginAuthority[0],
+      pages: [{ name: "首页", link: "/" }],
+      routes: [],
+    };
+  },
+  setup() {
+    return {
+      selectedKeys: ref(["item0_0"]),
+      collapsed: ref(false),
+      openKeys: ref(["title1"]),
+      basePath: "/index",
+    };
+  },
+  methods: {
+    onEdit: function (targetKey) {
+      let name = this.pages[targetKey].name;
+      console.log("targetKey:" + targetKey);
+      //判断删除是否激活的标签
+      let deleteIsActiveTarget = targetKey == this.activeKey;
+
+      //剩余标签数
+      let countTrue = 0;
+      countTrue = this.pages.length;
+      // 删除当前激活标签时 跳转目标标签的下标
+      let afterDeleteActiveIndex;
+      // console.log("targetKey:" + targetKey)
+      // console.log(countTrue - 1)
+
+      //标签大于1 可以删除
+      if (countTrue > 1) {
+        // 删除第0个
+        if (targetKey == 0) {
+          afterDeleteActiveIndex = 0;
+        } else {
+          // 删除选中项后面的
+          if (targetKey > this.activeKey) {
+            afterDeleteActiveIndex = this.activeKey;
+          }
+          // 删除选中项/选中项前面的
+          else if (targetKey <= this.activeKey) {
+            afterDeleteActiveIndex = this.activeKey - 1;
+          }
+        }
+
+        // console.log("afterDeleteActiveIndex：" + afterDeleteActiveIndex)
+        this.pages.splice(targetKey, 1);
+
+        if (deleteIsActiveTarget) {
+          this.$router.push(this.pages[afterDeleteActiveIndex].link);
+        }
+        this.activeKey = afterDeleteActiveIndex;
+
+        this.$router.options.routes.forEach((element, i) => {
+          if (name == element.name) {
+            if (this.$router.options.routes[i]?.meta?.keepAlive != undefined) {
+              this.$router.options.routes[i].meta.keepAlive = false;
+            }
+          }
+        });
+      }
+      // this.$router.options.routes[3].meta.keepAlive = false
+      console.log("afterDeleteActiveIndex:" + afterDeleteActiveIndex);
+      console.log("activeKey:" + this.activeKey);
+    },
+    //左侧标签跳转
+    changeTab: function (tabName) {
+      //判断是否已开启标签
+      let isOpen = false;
+      this.pages.forEach((element, i) => {
+        // 点击对应pages(标签栏)第几项
+        if (tabName == element.name) {
+          isOpen = true;
+        }
+      });
+
+      this.$router.options.routes.forEach((element, i) => {
+        if (element.name == tabName) {
+          // 没有此标签则添加
+          if (!isOpen) {
+            this.pages.push({
+              name: element.name,
+              link: element.path,
+            });
+          }
+
+          //跳转至点击项的标签
+          this.$router.push(element.path);
+          // console.log("查看成分：" + this.$router.options.routes[i]?.meta?.keepAlive)
+          if (this.$router.options.routes[i]?.meta?.keepAlive != undefined) {
+            this.$router.options.routes[i].meta.keepAlive = true;
+          }
+
+          //启动过快导致keepAlive修改无效，先跳转空白页，刷新一次页面
+          setTimeout(() => {
+            this.$router.push("/blank");
+          }, 10);
+
+          setTimeout(() => {
+            this.$router.replace(element.path);
+          }, 20);
+
+          this.pages.forEach((element, i) => {
+            if (tabName == element.name) {
+              this.activeKey = i;
+            }
+          });
+          // alert(this.$router.options.routes[i].meta.keepAlive)
+        }
+      });
+    },
+    //页面按钮跳转
+    changeTab2(tabName) {
+      //判断是否已开启标签
+      let isOpen = false;
+      this.pages.forEach((element, i) => {
+        // 点击对应pages(标签栏)第几项
+        if (tabName.name == element.name) {
+          isOpen = true;
+        }
+      });
+
+      this.$router.options.routes.forEach((element, i) => {
+        if (element.name == tabName.name) {
+          // 没有此标签则添加
+          if (!isOpen) {
+            this.pages.push({
+              name: element.name,
+              link: element.path,
+            });
+          }
+
+          this.$router.push(element.path);
+          // console.log("查看成分：" + this.$router.options.routes[i]?.meta?.keepAlive)
+          if (this.$router.options.routes[i]?.meta?.keepAlive != undefined) {
+            this.$router.options.routes[i].meta.keepAlive = true;
+          }
+
+          //启动过快导致keepAlive修改无效，先跳转空白页，刷新一次页面
+          setTimeout(() => {
+            this.$router.push("/blank");
+          }, 10);
+
+          setTimeout(() => {
+            this.$router.push(element.path);
+          }, 20);
+
+          this.pages.forEach((element, i) => {
+            if (tabName.name == element.name) {
+              this.activeKey = i;
+            }
+          });
+
+          // alert(this.$router.options.routes[i].meta.keepAlive)
+        }
+      });
+
+      if (tabName.delete != undefined) {
+        this.pages.forEach((element, i) => {
+          if (element.name == tabName.delete) {
+            this.pages.splice(i, 1);
+          }
+        });
+      }
+    },
+    showThis(tab) {
+      // console.log(tab)
+      // alert(tab)
+      this.activeKey = tab;
+      // console.log(tab)
+      // console.log(this.pages[tab].link)
+      this.$router.push(this.pages[tab].link);
+      // this.$router.push("/")
+    },
+    updataTab(tabName) {
+      this.pages.forEach((element, i) => {
+        if (element.title == tabName.title) {
+          this.pages[i].show = tabName.toggle;
+          this.activeKey = this.pages[i].key;
+          // console.log(this.pages[i])
+        }
+      });
+    },
+    // test(val){
+    //   console.log(val)
+    // }
+    t() {
+      console.log(this.activeKey);
+    },
+    getAPI(apiNameList) {
+      apiNameList.forEach((element) => {
+        this.$store.commit("getApi", element);
+      });
+    },
+    getAPIByUnitId(apiNameList) {
+      apiNameList.forEach((element) => {
+        this.$store.commit("getApiByUnit", element);
+      });
+    },
+  },
+  created() { },
+  beforeMounte() { },
+  mounted() {
+    // localStorage.setItem("unitId", "4000000117");
+    localStorage.setItem("talentUnitId", "15");
+
+    this.getAPI([
+      "auditstatusType",
+      "auditstatusTypeSearch",
+      "areaType",
+      "townType",
+      "houseType",
+      "houseLayoutType",
+      "educationType",
+      "certificatesType",
+      "streetType",
+      "auditlessType",
+      "houselabelType",
+      "apartmentfaciliType",
+      "hydropowerType",
+      "towardType",
+      "arealabelType",
+      "paytype",
+    ]);
+    this.getAPIByUnitId(["areaNameType"]);
+    // console.log(this.$store.state)
+    // console.log(this.$router.options.routes)
+  },
+  watch: {
+    $route(to, from) {
+      // console.log(from.path);//从哪来
+      // console.log(to.path);//到哪去
+      // this.getRoute();
+    },
+  },
+});
+</script>
+<style>
+#components-layout-demo-top-side-2 .logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ant-row-rtl #components-layout-demo-top-side-2 .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.site-layout-background {
+  background: #fff;
+}
+
+.ant-layout {
+  height: 100vh;
+}
+.ant-breadcrumb {
+  margin: 16px 0 !important;
+}
+</style>

@@ -1,0 +1,284 @@
+.ant-menu .anticon {
+    margin-right: 10px;
+    font-size   : 18px;
+}
+
+.searchArea .ant-input,
+.searchArea .ant-select {
+    width       : 10vw;
+    margin-right: 1vw;
+}
+
+.searchArea .ant-calendar-picker-input {
+    width: 14vw;
+}
+
+.table-striped td {
+    background-color: rgb(245, 245, 245);
+}
+
+.ant-table-striped .ant-table-thead>tr>th {
+    background-color: rgb(242, 242, 242);
+    text-align      : center;
+}
+
+.ant-table-striped .ant-table-tbody>tr>td {
+    text-align: center;
+}
+
+.editable-row-operations a {
+    margin-right: 8px;
+}
+
+.searchArea {
+    margin-bottom: 20px;
+}
+
+.operationArea {
+    margin-bottom: 20px;
+}
+
+.operationArea .ant-btn {
+    margin-right: 15px;
+}
+
+.steps-content {
+    border          : 1px dashed #e9e9e9;
+    border-radius   : 6px;
+    background-color: #fafafa;
+    min-height      : 200px;
+    text-align      : center;
+    padding-top     : 60px;
+    padding-bottom  : 20px;
+}
+
+.steps-content form {
+    max-height: 67vh;
+    min-height: 40vh;
+    overflow  : auto;
+}
+
+.steps-action {
+    margin-top: 24px;
+}
+
+.steps-content {
+    background-color: #fff;
+}
+
+.ant-upload-select-picture-card i {
+    font-size: 32px;
+    color    : #999;
+}
+
+.ant-upload-select-picture-card .ant-upload-text {
+    margin-top: 8px;
+    color     : #666;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item:hover .ant-upload-list-item-info:before {
+    left: 0;
+}
+
+.ant-page-header {
+    background: #fff;
+}
+
+.ant-breadcrumb {
+    font-size: 20px !important;
+    margin   : 10px 0 !important;
+}
+
+.ant-page-header.has-breadcrumb {
+    padding: 5px 24px;
+}
+
+.ant-menu {
+    font-size  : 18px;
+    font-weight: 600;
+}
+
+.ant-tabs-tab span {
+    color      : #000;
+    font-weight: bold;
+    display    : inline-block;
+}
+
+.ant-tabs-tab-active span {
+    color: #1890ff;
+}
+
+.statisticArea {
+    display   : flex;
+    flex-wrap : wrap;
+    margin-top: 5px;
+}
+
+.statisticArea>div {
+    display  : flex;
+    flex-wrap: wrap;
+    width    : 100%;
+}
+
+.statisticRow {
+    width    : 100%;
+    display  : flex;
+    flex-wrap: wrap;
+}
+
+.statisticRow>div {
+    width          : 50%;
+    display        : flex;
+    flex-wrap      : wrap;
+    justify-content: space-between;
+}
+
+.statisticRow.line1>div {
+    width: 100%;
+}
+
+.statisticStyle {
+    width        : 49%;
+    box-shadow   : 0 0 10px #00000030;
+    margin-bottom: 15px;
+}
+
+.ant-statistic {
+    padding: 15px 25px;
+}
+
+.ant-statistic-title {
+    font-size : 18px;
+    text-align: center;
+}
+
+.ant-statistic-content {
+    font-size    : 28px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    padding      : 5px 0 15px;
+    text-align   : center;
+}
+
+.ant-tabs-content {
+    /* height  : 82vh; */
+    /* overflow: auto; */
+    padding: 0 1%;
+}
+
+.ant-statistic-content-value-int {
+    font-weight: 700;
+}
+
+.statisticInfo {
+    display        : flex;
+    padding        : 0 25px;
+    color          : rgba(0, 0, 0, 0.647);
+    font-weight    : 400;
+    margin-bottom  : 5px;
+    justify-content: space-around;
+
+}
+
+.statisticInfo p {
+    /* width: 40%; */
+    /* margin: 0 5%; */
+    color: rgba(0, 0, 0, 0.647);
+}
+
+
+.statisticRow .line1 .statisticStyle {
+    width: 98%;
+}
+
+.statisticTitle {
+    font-size    : 18px;
+    padding      : 20px 0 20px 25px;
+    font-weight  : bold;
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.statisticTitle p {
+    margin: 0;
+}
+
+.statisticTitle span {
+    font-family: '微软雅黑 Bold',
+        '微软雅黑 Regular',
+        '微软雅黑',
+        sans-serif;
+    font-weight: 700;
+    color      : #409EFF;
+}
+
+.statisticChart {
+    height             : 281px;
+    /* background-color: #000; */
+    padding            : 0 20px 20px;
+    box-sizing         : border-box;
+}
+
+.statisticChart.line2 {
+    display: flex;
+}
+
+.statisticChart>div {
+    /* width: 100%; */
+    height: 100%;
+}
+
+.statisticChart.line2>div {
+    width : 50%;
+    height: 100%;
+}
+
+.address .ant-form-item-control-input-content {
+    display: flex;
+}
+
+.ant-input-number {
+    width: 100%;
+}
+
+.switchLeft .ant-form-item-control-input-content {
+    flex: inherit;
+}
+
+.ant-switch {
+    width    : 80px;
+    font-size: 16px;
+}
+
+.ant-form .ant-calendar-picker {
+    width: 100% !important;
+}
+
+.ant-calendar-picker-clear,
+.ant-calendar-picker-icon {
+    right: 30px;
+}
+
+.tableTabs .ant-tabs-content {
+    height  : auto;
+    overflow: visible;
+}
+
+.flex_sb {
+    display        : flex;
+    justify-content: space-between;
+}
+
+.flex_sa {
+    display        : flex;
+    justify-content: space-around;
+}
+
+
+.ant-upload-list-picture-card .ant-upload-list-item-info:before {
+    left: 0
+}
+
+hr {
+    width       : 90%;
+    margin      : 0 auto;
+    border-color: #99999910;
+}

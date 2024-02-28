@@ -1,0 +1,23 @@
+
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    width: 35%;
+}
+
+hr {
+    width       : 90%;
+    margin      : 0 auto;
+    border-color: #99999910;
+}
+
+.ant-popover-title {
+    padding: 10px 16px 10px;
+}
+
+.ant-popover-inner-content p {
+    margin-bottom: 0;
+    padding      : 10px 5px;
+}

@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+}
+
+:where(.css-dev-only-do-not-override-1hsjdkk).ant-menu-dark{
+    background-color: rgb(42,49,57);
+}
+
+.ant-menu .anticon {
+    margin-right: 10px;
+    font-size   : 18px;
+}
+
+
+.ant-upload-select-picture-card i {
+    font-size: 32px;
+    color    : #999;
+}
+
+.ant-upload-select-picture-card .ant-upload-text {
+    margin-top: 8px;
+    color     : #666;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item:hover .ant-upload-list-item-info:before {
+    left: 0;
+}
+
+.ant-page-header {
+    background: #fff;
+}
+
+.ant-breadcrumb {
+    font-size: 20px !important;
+    margin   : 10px 0 !important;
+}
+
+.ant-page-header.has-breadcrumb {
+    padding: 5px 24px;
+}
+
+.ant-menu {
+    font-size  : 18px;
+    font-weight: 600;
+}
+
+.ant-tabs-tab span {
+    color      : #000;
+    font-weight: bold;
+    display    : inline-block;
+}
+
+
+.ant-upload-list-picture-card .ant-upload-list-item-info:before {
+    left: 0
+}
+
+hr {
+    width       : 90%;
+    margin      : 0 auto;
+    border-color: #99999910;
+}
+
+.title {
+    background-color: rgb(42,49,57);
+    display: flex;
+}
